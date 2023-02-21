@@ -1,0 +1,52 @@
+A) IMPLEMENT K-MEANS CLUSTERING
+
+1)LOADING DATASET:
+#K-Means clustering
+head(iris)
+
+2) LOADING LIBRARY FOR PLOTTING GRAPH:
+library(ggplot2)
+ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) + geom_point()
+
+3) EXECUTING K-MEANS AND PLOTTING GRAPH:
+#Setting a seed in R means to initialize a pseudorandom number generator.
+set.seed(20)
+
+#Executing Kmeans
+irisCluster <- kmeans(iris[, 3:4], 3, nstart = 20)
+irisCluster
+
+table(irisCluster$cluster, iris$Species)
+
+irisCluster$cluster <- as.factor(irisCluster$cluster)
+ggplot(iris, aes(Petal.Length, Petal.Width, color = irisCluster$cluster)) + geom_point()
+
+
+B) K-MEANS AGGLOMERATIVE
+
+1)LOADING DATASET:
+#K-Means Agglomerative
+head(iris)
+
+2) CREATING CLUSTERS:
+clusters <- hclust(dist(iris[, 3:4]))
+clusters
+plot(clusters)
+
+3) CREATING GROUP OF CLUSTERS:
+clusterCut<- cutree(clusters, 3)
+clusterCut
+table(clusterCut, iris$Species)
+
+4) CREATING AVERAGE LINKAGE CLUSTERS:
+clusters <- hclust(dist(iris[, 3:4]), method = 'average')
+clusters
+plot(clusters)
+
+5) CREATING GROUP CLUSTER FOR AVERAGE LINKAGE
+clusterCut <- cutree(clusters, 3)
+clusterCut
+table(clusterCut,iris$Species)
+
+6) PLOTTING CLUSTERED GRAPH:
+ggplot(iris, aes(Petal.Length, Petal.Width, color = iris$Species)) + geom_point(alpha = 0.4, size = 3.5) + geom_point(col = clusterCut) + scale_color_manual(values = c('black', 'red', 'green'))

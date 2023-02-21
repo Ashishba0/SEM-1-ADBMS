@@ -1,0 +1,57 @@
+Soybean Database
+Description: Predict problems with soybean crops from crop data.
+Type: Multi-Class Classification
+Dimensions: 683 instances, 26 attributes
+Inputs: Integer (Nominal)
+Output: Categorical, 19 class labels
+UCI Machine Learning Repository: Description
+https://www.kaggle.com/code/aishwaryayadugani/soyabean-dataset-66b8/data
+
+
+
+# Load necessary libraries
+library(tidyverse)
+library(caret)
+
+# Load data
+soybean <- read.csv("soybean.csv", header = FALSE)
+
+# Set column names
+colnames(soybean) <- c("date", "plant_stand", "precip", "temp", "hail", "crop_hist", "area_damaged", "severity", "seed_tmt", "germination", "plant_growth", "leaves", "leafspots_halo", "leafspots_marg", "leafspot_size", "leaf_shread", "leaf_malf", "leaf_mild", "stem", "lodging", "stem_cankers", "canker_lesion", "fruiting_bodies", "external_decay", "mycelium", "int_discolor")
+
+# Check structure and summary of data
+str(soybean)
+summary(soybean)
+
+
+# Train a classification model using caret package
+model <- train(int_discolor ~ ., data = train, method = "rf")
+
+# Predict on the testing set
+predictions <- predict(model, newdata = test)
+
+# Evaluate performance of the model
+confusionMatrix(predictions, test$int_discolor)
+
+# Plot variable importance
+varImp(model)
+
+
+# Split into training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(soybean$int_discolor, p = 0.7, list = FALSE)
+train <- soybean[trainIndex, ]
+test <- soybean[-trainIndex, ]
+
+
+# Train a classification model using caret package
+model <- train(int_discolor ~ ., data = train, method = "rf")
+
+# Predict on the testing set
+predictions <- predict(model, newdata = test)
+
+# Evaluate performance of the model
+confusionMatrix(predictions, test$int_discolor)
+
+# Plot variable importance
+varImp(model)

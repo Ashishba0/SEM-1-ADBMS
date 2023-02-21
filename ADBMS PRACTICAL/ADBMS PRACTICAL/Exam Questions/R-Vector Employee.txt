@@ -1,0 +1,37 @@
+1. Create a folder named "RPractical" in your home directory/C: drive.
+2. Set the working directory to this folder.
+3. Create 4 vectors EmployeeID, EmployeeName, EmployeeDept and
+EmployeeSalary with some meaningful data.
+4. Create a dataframe with 4 variable names namely EmployeeID,
+EmployeeName, EmployeeDept and EmployeeSalary.
+5. Print data frame.
+6. Rename variables (columns) of dataframe to the names of your choice.
+7. Assign some valid row names to data frame and print it
+------------------------------------------------------------------------------------------
+
+# create a folder named "RPractical" in the working directory
+dir.create("RPractical")
+
+# set the working directory to "RPractical"
+setwd("RPractical")
+
+# create vectors for EmployeeID, EmployeeName, EmployeeDept, and EmployeeSalary
+EmployeeID <- c(1, 2, 3, 4)
+EmployeeName <- c("Harsh", "Mary", "Samantha", "Bob")
+EmployeeDept <- c("Marketing", "Sales", "IT", "HR")
+EmployeeSalary <- c(50000, 60000, 70000, 80000)
+
+# create a data frame with the four variables
+EmployeeData <- data.frame(EmployeeID, EmployeeName, EmployeeDept, EmployeeSalary)
+
+# print the data frame
+print(EmployeeData)
+
+# rename variables (columns) of the data frame
+colnames(EmployeeData) <- c("ID", "Name", "Department", "Salary")
+
+# assign some row names to the data frame
+rownames(EmployeeData) <- c("Employee1", "Employee2", "Employee3", "Employee4")
+
+# print the data frame with row names
+print(EmployeeData)

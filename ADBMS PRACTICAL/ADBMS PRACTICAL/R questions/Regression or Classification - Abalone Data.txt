@@ -1,0 +1,126 @@
+Abalone Data
+Description: Predict abalone age from abalone measurement data.
+Type: Regression or Classification
+Dimensions: 4177 instances, 9 attributes
+Inputs: Numerical and categorical
+Output: Integer
+UCI Machine Learning Repository: Description
+https://www.kaggle.com/datasets/rodolfomendes/abalone-dataset/code
+
+
+
+# Load the required libraries
+library(tidyverse)
+library(caret)
+
+# Load the Abalone dataset
+abalone <- read.csv("abalone.csv")
+
+# Perform some basic EDA
+summary(abalone)
+ggplot(abalone, aes(x = Age)) + 
+  geom_histogram() + 
+  labs(title = "Distribution of Abalone Age")
+
+# Split the dataset into training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(abalone$Age, p = 0.7, list = FALSE)
+trainData <- abalone[trainIndex, ]
+testData <- abalone[-trainIndex, ]
+
+# Fit a regression model to predict the age of the abalone
+model <- train(Age ~ ., data = trainData, method = "lm")
+
+# Make predictions on the testing set
+predictions <- predict(model, testData)
+
+# Evaluate the performance of the model using RMSE
+rmse <- sqrt(mean((testData$Age - predictions)^2))
+rmse
+
+# Visualize the relationship between the input features and the output
+ggplot(abalone, aes(x = Diameter, y = Age)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  labs(title = "Abalone Age vs. Diameter")
+
+ggplot(abalone, aes(x = Height, y = Age)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  labs(title = "Abalone Age vs. Height")
+
+# Visualize the model's performance on the testing set
+ggplot(data.frame(predictions = predictions, actual = testData$Age), aes(x = actual, y = predictions)) + 
+  geom_point() + 
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") + 
+  labs(title = "Model Performance on Testing Set", x = "Actual Age", y = "Predicted Age")
+
+# Save the model for future use
+saveRDS(model, file = "abalone_model.rds")
+
+# Load the saved model
+loaded_model <- readRDS("abalone_model.rds")
+
+# Make predictions on new data
+new_data <- data.frame(Sex = "M", Length = 0.515, Diameter = 0.405, Height = 0.125, Whole_weight = 0.7285, Shucked_weight = 0.295, Viscera_weight = 0.1765, Shell_weight = 0.195)
+new_predictions <- predict(loaded_model, new_data)
+new_predictions
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+# Load the required libraries
+library(tidyverse)
+library(caret)
+
+# Load the Abalone dataset
+abalone <- read.csv("abalone.csv")
+
+# Perform some basic EDA
+summary(abalone)
+ggplot(abalone, aes(x = Age)) + 
+  geom_histogram() + 
+  labs(title = "Distribution of Abalone Age")
+
+# Split the dataset into training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(abalone$Age, p = 0.7, list = FALSE)
+trainData <- abalone[trainIndex, ]
+testData <- abalone[-trainIndex, ]
+
+# Fit a regression model to predict the age of the abalone
+model <- train(Age ~ ., data = trainData, method = "lm")
+
+# Make predictions on the testing set
+predictions <- predict(model, testData)
+
+# Evaluate the performance of the model using RMSE
+rmse <- sqrt(mean((testData$Age - predictions)^2))
+rmse
+
+
+# Visualize the relationship between the input features and the output
+ggplot(abalone, aes(x = Diameter, y = Age)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  labs(title = "Abalone Age vs. Diameter")
+
+ggplot(abalone, aes(x = Height, y = Age)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  labs(title = "Abalone Age vs. Height")
+
+# Visualize the model's performance on the testing set
+ggplot(data.frame(predictions = predictions, actual = testData$Age), aes(x = actual, y = predictions)) + 
+  geom_point() + 
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") + 
+  labs(title = "Model Performance on Testing Set", x = "Actual Age", y = "Predicted Age")

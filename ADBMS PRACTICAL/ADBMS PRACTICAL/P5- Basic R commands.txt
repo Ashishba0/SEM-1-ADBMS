@@ -1,0 +1,190 @@
+1) Basic R commands:
+myString <- "Hello, Prasanna!"
+print ( myString)
+setwd("C:\\Users\\user1\\Desktop\\48_FYMCA")
+getwd()
+dir()
+ls()
+
+2) 
+x<-48
+class(x)
+x
+print(x)
+
+x<-'c'
+is.character(x)
+is.integer(x)
+
+y<-'3.14'
+as.integer(y)
+
+3) ###Creating Vector: contains objects of same class
+#using c() function
+x<-c(21.5,14.7,35.2,42.6)
+
+#using vector() function
+y<-vector("logical", length=10)
+
+#length of vector x
+length(x)
+y
+
+4)#Vector operations: Various arithmetic operations can be performed member-wise. Like: #- Multiplication by a scalar. 
+#- Addition of two vectors. 
+#- Multiplication of two vectors
+y<-c(4,5,6,7)
+
+#multiplication by a scalar
+4*x
+
+#addition of two vectors x+y #multiplication of two vectors
+x*y
+
+#x to the power y
+x^y
+
+5) ###Creating Matrix: Two-dimensional array having elements of same class. 
+#using matrix() function
+m<-matrix(c(48,33,36,12,60,44,42,21,22),nrow=3,ncol=3)
+m
+#dimensions of matrix m
+dim(m)
+
+#attributes of matrix m 
+attributes(m)
+
+#By default, elements in matrix are filled by column. "byrow" attribute of matrix() can be used to fill
+m<-matrix(c(48,33,36,12,60,44,42,21,22),nrow=3,ncol=3,byrow = TRUE)
+m
+
+6) #cbind-ing and rbind-ing:
+ #By using cbind() and rbind() functions
+x<-c(1,2,3) 
+y<-c(11,12,13) 
+cbind(x,y) 
+rbind(x,y)
+
+7) ##Matrix operations/functions: 
+#Multiplication by a scalar. 
+#Addition, subtraction and multiplication of two matrices. 
+#Transpose, determinant of a matrix. Etc.
+#multiplication by a scalar 
+p<-3*m p
+n<-matrix(c(10,13,15,17,19,21,23,25,27),nrow=3,ncol=3)
+
+#addition of two matrices
+q<-m+n q 
+q
+
+o<-matrix(c(2,4,6,8,10,12),nrow=3,ncol=2)
+o
+
+#matrix multiplication by using %*% 
+r<-m %*% o 
+r
+
+#transpose of matrix 
+mdash<-t(m) 
+mdash
+
+s<-matrix(c(4,5,6,14,15,16,24,25,26), nrow=3,ncol=3,byrow=TRUE)
+#determinant of s 
+s_det<-det(s) 
+s_det 
+
+8) List: A special type of vector containing elements of different classes. ####Elements of list can be accessed by giving element index or name in [[]].
+#using list() function
+x<-list(1,"p",TRUE,2+4i)
+x
+
+###Factor: Represents categorical data. Can be ordered or unordered.
+status<-c("low","high","medium","high","low")
+#using factor() function
+x<-factor(status, ordered=TRUE,levels=c("low","medium","high"))
+x
+
+9) ##levels' argument is used to set the order of levels.
+#First level forms the baseline level.
+# Without any order, levels are called nominal. Ex. - Type1, Type2, .
+# With order, levels are called ordinal. Ex. - low, medium, .
+###Data frame: Used to store tabular data. Can contain different classes.
+student_id<-c(1,2,3)
+student_names<-c("Ram","Shyam","Laxman")
+position<-c("First","Second","Third")
+
+#using data.frame() function
+data<-data.frame(student_id,student_names,position)
+data
+
+#accessing a particular column
+data$student_id
+
+#no. of rows in data
+nrow(data)
+
+#no. of columns in data
+ncol(data)
+
+#column names of data. for a dataframe, colnames() can also be used.
+names(data)
+
+10) ###Table command is used to create a 2 dimensional table in R
+smoke <- matrix(c(12,48,21,44,22,49,42,33,20),ncol=3,byrow=TRUE)
+colnames(smoke) <- c("High","Low","Middle")
+rownames(smoke) <- c("current","former","never")
+smoke <- as.table(smoke)
+smoke
+
+11) ###installing Package
+install.packages("XLConnect")
+library(XLConnect)
+install.packages("readxl")
+library(readxl)
+install.packages("writexl")
+library(writexl)
+uncomment this to read data from Excel
+
+#Reading and writing data from csv
+dataT <- read.table("data.csv", sep =",", header = T)
+dataT
+
+# dimension
+dim(dataT)
+
+# Load just few lines at the top or bottom
+head(dataT, 2)
+tail(dataT, 2)	
+z <- data.frame(a = 5, b = 10, c = pi)
+write.csv(z,file="mydata.csv")
+
+12) #Reading and writing data from Excel using XLConnect
+install.packages('Rcpp')
+library(Rcpp)
+
+#Reading and writing data from Excel using XLConnect
+dataX <- XLConnect::readWorksheetFromFile("C:\\Users\\prasanna\\OneDrive\\Documents\\friends.info.xlsx", sheet=1)
+dataX
+
+
+13) #Following is called Subsetting - It will print rows from 1 to 2 and all columns
+dataY<- dataX[1:2,]
+dataY
+
+14) #Reading and writing data from Excel using readXL and writeXL
+data2 <- read_excel("C:\\Users\\prasanna\\OneDrive\\Documents\\friends.info.xlsx", sheet = "1"
+Data2
+
+data3<- data2[1:5,]
+write_xlsx(data3, "e2.xlsx")
+
+# create an empty data frame
+data <- data.frame(Name=character(), Age=numeric())
+
+# load interface and assign edited values to data back - uncomment following
+data <- edit(data)
+
+#print those values
+data
+
+

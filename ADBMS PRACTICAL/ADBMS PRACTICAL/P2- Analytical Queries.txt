@@ -1,0 +1,74 @@
+1)TABLE CREATION:
+CREATE TABLE Employee (
+EMP_NO NUMBER(5),
+DEP_NO NUMBER(5), 
+BDATE DATE,
+SALARY NUMBER(10),
+COMM NUMBER(10),
+JOB VARCHAR2(20));
+
+insert into Employee values (181, 18, 2-AUG-2001, 80000, 2000, 'Developer');
+select * from Employee;
+
+2) ROLLUP:
+SELECT DEP_NO, JOB, count(*), sum (SALARY)
+from Employee
+group by rollup(DEP_NO, JOB);
+
+3) CUBE:
+SELECT DEP_NO, JOB, count(*), sum (SALARY)
+from Employee
+group by cube(DEP_NO, JOB);
+
+4) RANK:
+SELECT EMP_NO,DEP_NO, SALARY, COMM,
+rank() over (partition by DEP_NO order by SALARY) as Rank from Employee;
+
+update Employee
+set SALARY-33000
+where EMP_NO=101;
+
+update Employee
+set SALARY-44000
+where EMP_NO=105;
+
+select * from Employee;
+
+SELECT EMP_NO,DEP_NO, SALARY, COMM,
+rank() over (partition by DEP_NO order by SALARY) as Rank from Employee;
+
+
+
+5) DENSERANK:
+SELECT EMP_NO,DEP_NO, SALARY, COMM,
+dense_rank() over (partition by DEP_NO order by SALARY) as Rank from Employee;
+
+6) LEAD:
+select EMP_NO, BDATE,
+lead(BDATE, 1) over (order by BDATE) as "next"
+from Employee;
+
+select EMP_NO, BDATE,
+lead(BDATE, 1) over (order by BDATE) as "next"
+from Employee where DEP_NO=10;
+
+7) LAG:
+select EMP_NO, BDATE,
+lag(BDATE, 1) over (order by BDATE) as "previous"
+from Employee;
+
+select EMP_NO, BDATE,
+lag(BDATE, 1) over (order by BDATE) as "previous"
+from Employee where DEP_NO=10;
+
+8) MAX:
+select DEP_NO, SALARY,
+max(SALARY) keep (DENSE_RANK FIRST ORDER BY SALARY desc)
+over (PARTITION BY DEP_NO)"max"
+from Employee;
+
+9) MIN:
+select DEP_NO, SALARY,
+min(SALARY) keep (DENSE_RANK FIRST ORDER BY SALARY desc)
+over (PARTITION BY DEP_NO)"min"
+from Employee;

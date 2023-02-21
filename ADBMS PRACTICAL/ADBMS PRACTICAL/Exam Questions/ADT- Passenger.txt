@@ -1,0 +1,25 @@
+//Create an ADT passenger_type with fields PID, PName, Address, Destination, Age.
+//Create an object table Passenger_dtls of type passenger. Insert some meaningful
+// record and display data
+
+ CREATE TYPE passenger_type AS OBJECT(
+  PID NUMBER,
+  PName VARCHAR(255),
+  Address VARCHAR(255),
+  Destination VARCHAR(255),
+  Age NUMBER
+);
+
+-- Create the Passenger_dtls object table using the passenger_type abstract data type
+CREATE TABLE Passenger_dtls OF passenger_type;
+
+-- Insert a record into the Passenger_dtls table
+INSERT INTO Passenger_dtls VALUES (
+  123, 'John Doe', '123 Main St, Anytown USA', 'New York City', 35
+);
+
+-- Display the data in the Passenger_dtls table
+SELECT * FROM Passenger_dtls;
+
+
+

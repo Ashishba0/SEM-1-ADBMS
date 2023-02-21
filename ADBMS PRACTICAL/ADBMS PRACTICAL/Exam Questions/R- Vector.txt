@@ -1,0 +1,30 @@
+dir.create("~/RPractical") 
+To set the working directory to this folder, we can use the following command:
+
+Copy code
+setwd("~/RPractical") //if this doesnt work then use setwd("C:/RPractical") 
+Note: The "~" sign is used to represent the home directory.
+
+my_var <- c(3, 5.3, FALSE, TRUE, "Joe")
+
+To initialize a complex number variable and check whether it is a complex number or not, we can use the following commands:
+
+c <- 3.5 + 4i
+is.complex(c)
+Output:
+
+csharp
+Copy code
+[1] TRUE
+To create vectors with the given values, we can use the following commands:
+
+a <- c(1, 7, 5.3, 6, -2, 4)
+b <- c("one", "two", "three")
+c <- c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE)
+
+To get the class of the vector, we can use the following command:
+class(a)
+
+[1] "numeric"
+To find the length of the vector, we can use the following command:
+length(a)

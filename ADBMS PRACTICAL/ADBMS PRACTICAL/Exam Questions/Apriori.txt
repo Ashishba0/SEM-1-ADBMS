@@ -1,0 +1,20 @@
+> # Load the "arules" package for association rules mining
+> library(arules)
+> 
+> # Load the dataset as transactions
+> transactions <- read.transactions("Groceries", sep = ",", rm.duplicates = TRUE)
+Error in file(file, "r") : cannot open the connection
+In addition: Warning message:
+In file(file, "r") :
+  cannot open file 'Groceries': No such file or directory
+> transactions <- list(
++     c("bread", "milk", "eggs"),
++     c("bread", "milk"),
++     c("bread", "cornflakes", "juice"),
++     c("milk", "cornflakes", "juice"),
++     c("bread", "cornflakes", "milk", "juice", "eggs"),
++     c("cornflakes", "juice")
++ )
+> transactions <- as(transactions, "transactions")
+> 
+> rules <- apriori(transactions, parameter = list(support = 0.5, confidence = 0.8))

@@ -1,0 +1,89 @@
+Pima Indians Diabetes Database
+Description: Predict the onset of diabetes in female Pima Indians from medical record data.
+Type: Binary Classification
+Dimensions: 768 instances, 9 attributes
+Inputs: Numeric
+Output: Categorical, 2 class labels
+Dataset Details: Description
+Published accuracy results: Summary
+https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
+
+
+# Load the dataset
+diabetes_data <- read.csv("path/to/diabetes.csv")
+
+# View the first few rows of the dataset
+head(diabetes_data)
+
+# View a summary of the dataset
+summary(diabetes_data)
+
+# Check for missing values
+sum(is.na(diabetes_data))
+
+# Split the data into training and testing sets
+library(caret)
+set.seed(123) # For reproducibility
+train_index <- createDataPartition(diabetes_data$Outcome, p = 0.8, list = FALSE)
+train_data <- diabetes_data[train_index, ]
+test_data <- diabetes_data[-train_index, ]
+
+# Train a logistic regression model on the training data
+model <- glm(Outcome ~ ., data = train_data, family = binomial)
+
+# Make predictions on the testing data using the trained model
+predictions <- predict(model, newdata = test_data, type = "response")
+
+# Evaluate the performance of the model
+library(pROC)
+roc(test_data$Outcome, predictions)
+
+-------------------------------------------------------------------------
+
+# Load the dataset
+diabetes_data <- read.csv("path/to/diabetes.csv")
+
+# Data preprocessing
+diabetes_data$Outcome <- as.factor(diabetes_data$Outcome) # Convert Outcome to a factor
+diabetes_data$Glucose[diabetes_data$Glucose == 0] <- NA # Replace zero values with NA
+diabetes_data$BloodPressure[diabetes_data$BloodPressure == 0] <- NA
+diabetes_data$SkinThickness[diabetes_data$SkinThickness == 0] <- NA
+diabetes_data$Insulin[diabetes_data$Insulin == 0] <- NA
+diabetes_data$BMI[diabetes_data$BMI == 0] <- NA
+
+# View a summary of the dataset
+summary(diabetes_data)
+
+# Check for missing values
+sum(is.na(diabetes_data))
+
+# Split the data into training and testing sets
+library(caret)
+set.seed(123) # For reproducibility
+train_index <- createDataPartition(diabetes_data$Outcome, p = 0.8, list = FALSE)
+train_data <- diabetes_data[train_index, ]
+test_data <- diabetes_data[-train_index, ]
+
+# Data visualization
+library(ggplot2)
+ggplot(diabetes_data, aes(x = Outcome, fill = Outcome)) +
+  geom_bar() +
+  labs(title = "Distribution of Diabetes Outcome", x = "Outcome", y = "Count")
+
+ggplot(diabetes_data, aes(x = Age, y = Glucose, color = Outcome)) +
+  geom_point() +
+  labs(title = "Age vs Glucose by Diabetes Outcome", x = "Age", y = "Glucose")
+
+ggplot(diabetes_data, aes(x = BMI, fill = Outcome)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Distribution of BMI by Diabetes Outcome", x = "BMI", y = "Density")
+
+# Train a logistic regression model on the training data
+model <- glm(Outcome ~ ., data = train_data, family = binomial)
+
+# Make predictions on the testing data using the trained model
+predictions <- predict(model, newdata = test_data, type = "response")
+
+# Evaluate the performance of the model
+library(pROC)
+roc(test_data$Outcome, predictions)

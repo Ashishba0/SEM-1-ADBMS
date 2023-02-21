@@ -1,0 +1,110 @@
+1) Creating Abstract Data Type:
+create type per as object
+(name varchar2(10),
+address varchar2(10));
+
+create table emp (id number(3), detail per);
+
+desc emp;
+
+2) Inserting values:
+insert into emp values(1, per('Prasanna','Mumbai'));
+insert into emp values(2, per('Nahez','Panvel'));
+insert into emp values(3, per('Riddesh','Thane'));
+insert into emp values(4, per('Ballal','Dombivli'));
+insert into emp values(5, per('Pranav','Dombivli'));
+insert into emp values(6, per('Dishank','Thakurli'));
+insert into emp values(7, per('Ajay','Thane'));
+insert into emp values(8, per('Sushant','Thane'));
+insert into emp values(9, per('Rohan','Kalyan'));
+insert into emp values(10, per('Rushi','Kurla'));
+
+3) Displaying values:
+select * from emp;
+
+4) Modifying values:
+update emp e set e.detail.name=’Ghanshyam’ where id=9;
+select * from emp;
+
+5) Deleting Record:
+delete from emp where id=9;
+select * from emp;
+
+6) Adding Attributes:
+alter type per add attribute(street varchar2(10)) cascade;
+alter type per add attribute(city varchar2(10)) cascade;
+alter type per add attribute(state varchar2(10)) cascade;
+alter type per add attribute(pin number(6)) cascade;
+alter type per add attribute(country varchar2(10)) cascade;
+desc per;
+
+
+7) Modifying size of attribute:
+alter type per modify attribute(country varchar2(30)) cascade ;
+
+
+8) The REF Function
+CREATE OR REPLACE TYPE ANIMAL_TY AS OBJECT (
+    Breed VARCHAR2(25),
+    Name VARCHAR2(25),
+    BirthDate DATE
+);
+/
+
+CREATE TABLE ANIMAL_prasanna_48 OF ANIMAL_TY;
+
+INSERT INTO ANIMAL_prasanna_48 VALUES (ANIMAL_TY('MULE','FRANCES','01-APR-02'));
+INSERT INTO ANIMAL_prasanna_48 VALUES (ANIMAL_TY('CAT','MEW','04-NOV-03'));
+INSERT INTO ANIMAL_prasanna_48 VALUES (ANIMAL_TY('DOG','BENJI','03-SEP-01'));
+
+SELECT REF(A) FROM ANIMAL_prasanna_48 A;
+
+
+9) The DEREF Function
+CREATE TABLE KEEPER_prasanna_48(
+KeeperName VARCHAR(25),
+AnimalKept REF ANIMAL_TY
+);
+
+DESCRIBE KEEPER_prasanna_48;
+
+INSERT INTO KEEPER_prasanna_48 SELECT 'CATHERINE', REF(A) FROM ANIMAL_prasanna_48 A WHERE Name='BENJI';
+
+SELECT * FROM KEEPER_prasanna_48;
+
+
+10) INHERITANCE : 
+CREATE OR REPLACE TYPE AddressType AS OBJECT (
+street VARCHAR(15),
+city VARCHAR2(15),
+state VARCHAR(2),
+zip VARCHAR2(5)
+);
+/
+
+CREATE Or REPLACE TYPE PersonType AS OBJECT (
+id NUMBER,
+first_name VARCHAR2(10),
+last_name VARCHAR2(10),
+dob DATE,
+phone VARCHAR2(12),
+address AddressType
+) NOT FINAL;
+/
+
+CREATE Or replace TYPE business_PersonType UNDER PersonType (
+title VARCHAR2(20),
+company VARCHAR2(20));
+/
+
+CREATE TABLE object_CustomersPrasanna OF business_PersonType;
+
+INSERT INTO object_CustomersPrasanna VALUES (
+business_PersonType(1, 'Prasanna', 'Sawant', '01-FEB-2001', '800-555-3333',
+AddressType('2 Ave', 'town', 'MA', '12345'),'Manager', 'XYZ Corp')
+);
+
+SELECT * FROM object_CustomersPrasanna;
+
+
+

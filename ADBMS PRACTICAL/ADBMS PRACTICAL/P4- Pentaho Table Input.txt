@@ -1,0 +1,87 @@
+DATABASE CONNECTION:
+1.Connection name: Name of transformation
+2.Host Name: mcaserver
+3.Database Name: sem1
+4.Tablespace for Data: users
+5.Username: user(RollNo)a
+6.Password: 
+7.Click on Test
+
+
+1.CREATE TABLE:
+CREATE TABLE prasanna48a (
+ID number(10),
+FIRST_NAME varchar2(20),
+LAST_NAME varchar2(20),
+AGE number(10),
+CITY varchar2(20),
+DEPARTMENT varchar2(20),
+SALARY number(10),
+EXPENSE_AMOUNT number(10),
+EMAIL_ID varchar2(20) );
+
+
+2.INSERT DATA:
+INSERT INTO prasanna48a VALUES(
+101,'Prasanna','Sawant',21,
+'Mumbai','MCA',80000,28000,
+'prasanna@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+102,'Tanvi','Sawant',18,
+'Thane','BBA',60000,20000,
+'tanu@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+103,'Amey','Sawant',20,
+'Ratnagiri','CS',70000,23000,
+'amya@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+104,'Tanmay','Sawant',18,
+'Mumbai','IT',60000,10000,
+'Tanya@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+105,'Saylee','Chavan',28,
+'Thane','EXTC',75000,28000,
+'saiu@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+106,'Sahil','Chavan',22,
+'Thane','CS',65000,27000,
+'sahil@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+107,'Saurabh','Sawant',24,
+'Ratnagiri','AGRICULTURE',70000,20000,
+'sonu@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+108,'Akshay','Sawant',29,
+'Pune','IT',90000,24000,
+'akshu@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+109,'Deepali','Sawant',27,
+'Nashik','MA',85000,18000,
+'deepu@gmail.com');
+
+INSERT INTO prasanna48a VALUES(
+110,'Ritesh','Pawar',31,
+'Nagpur','FINANCE',70000,10000,
+'ritu@gmail.com');
+
+4. 2.INSERT DATA USING &:
+INSERT INTO prasanna48a VALUES(
+&ID, '&FIRST_NAME','&LAST_NAME',
+&AGE, '&CITY', '&DEPARTMENT',
+&SALARY, &EXPENSE_AMOUNT, '&EMAIL_ID');
+
+3. ARRANGE TABLE:
+set linesize 300 pagesize 100;
+select * from prasanna48a;
+
+
+4. SELECT:
+select * from prasanna48a;

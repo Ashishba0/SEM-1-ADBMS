@@ -1,0 +1,81 @@
+getwd()
+
+A) SIMPLE LINEAR REGRESSION:
+
+1)LOADING LIBRARY & DATASET:
+#load library
+install.packages("ggplot2")
+library(ggplot2)
+
+#load cars dataset
+my_data <-mtcars
+
+#printing names of columns
+names(my_data)
+
+2) PRINTING DIMENSIONS OF DATASET:
+#printing dimensions of dataset
+dim(my_data)
+
+3) CREATING RANDOM SAMPLE:
+#randomize
+my_data <- my_data[sample(nrow(my_data), ), ]
+head(my_data)
+
+4) CREATING TRAINING & TESTING DATASET:
+#Creating Training & Testing Dataset
+TrainData <- my_data[1:20,]
+TestData <- my_data[21:32,]
+
+TrainData
+TestData
+
+5) CREATING LINEAR REGRESSION MODEL AND PRINTING RESULTS:
+## Linear Model
+fit = lm(mpg ~ hp, data=mtcars)
+summary(fit)
+
+
+preds <- predict(fit, newdata = TestData)
+df1 <- data.frame(preds, TestData$mpg)
+head(df1)
+
+6) CALCULATE CORRELATION:
+#correlation
+cor(preds,TestData$mpg)
+
+7) PLOTTING POINTS:
+plot(mtcars$hp, mtcars$mpg)
+
+8) PLOTTING LINEAR REGRESSION GRAPH:
+ggplot(fit, aes(hp, mpg)) +
+  geom_point() +
+  stat_smooth(method = lm, se = FALSE) +
+  geom_segment(aes(xend = hp, yend = .fitted), color = "red", size = 0.3)
+
+
+B)   MULTI LINEAR REGRESSION:
+
+1) CREATING MULTI LINEAR REGRESSION MODEL & PRINTING SUMMARY:
+#BetterModel ?
+lmmodel1 <- lm(mpg ~ hp+cyl+gear+wt, data = TrainData)
+summary(lmmodel1)
+
+preds <- predict(fit, newdata = TestData)
+df1 <- data.frame(preds,TestData$mpg)
+head(df1)
+
+2) CORRELATION:
+cor(preds_new,TestData$mpg)
+
+3 PLOTTING POINTS:
+plot(mtcars$hp+mtcars$cyl+mtcars$gear+mtcars$wt, mtcars$mpg)
+
+4) PLOTTING MULTI LINEAR REGRESSION GRAPH:
+ggplot(fit, aes(mtcars$hp+mtcars$cyl+mtcars$gear+mtcars$wt, mpg)) +
+geom_point() +
+stat_smooth(method = lm, se = FALSE) +
+geom_segment(aes(xend = hp, yend = .fitted), color = "red", size = 0.3)
+
+
+

@@ -1,0 +1,30 @@
+Q. Create a table purchase with attributes p_id, p_name and p_amt using range
+partitioning create the following three partitions -
+P1- amount less than 1000,
+P2- amount less than 2000,
+P3- amount greater than 3000,
+Display the contents of each partition
+
+
+
+CREATE TABLE purchase1
+(
+  p_id INT,
+  p_name VARCHAR(50),
+  p_amt INT
+)
+PARTITION BY RANGE(p_amt)(
+  PARTITION P1 VALUES LESS THAN (1000),
+  PARTITION P2 VALUES LESS THAN (2000),
+  PARTITION P3 VALUES LESS THAN (MAXVALUE)
+);
+Insert into purchase1 values(1,'Harsh',3000);
+Insert into purchase1 values(2,'Yash',2000);
+Insert into purchase1 values(3,'RAM',1000);
+Insert into purchase1 values(4,'Harshal',1000);
+INSERT INTO purchase1 (p_id, p_name, p_amt) VALUES (1, 'Product A', 800);
+
+
+SELECT * FROM purchase1 PARTITION (P1);
+SELECT * FROM purchase1 PARTITION (P2);
+SELECT * FROM purchase1 PARTITION (P3);

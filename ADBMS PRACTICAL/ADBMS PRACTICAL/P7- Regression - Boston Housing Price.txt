@@ -1,0 +1,85 @@
+Regression - Boston Housing Price:-
+Description: Predict the house price in Boston from house details
+Type: Regression
+Dimensions: 506 instances, 14 attributes
+Inputs: Numeric
+Output: Numeric
+ 
+
+getwd()
+setwd("C:\\Users\\Public.LAPTOP-D41683BS\\Desktop\\PRASANNA")
+
+
+library(MASS)
+install.packages("ISLR")
+library(ISLR)
+
+summary(Boston)
+
+head(Boston)
+
+#Exploratory Data Analysis
+plot(medv~lstat, Boston)
+
+#It is worth noting that lstat and medv is related. The relationship is likely to be non-linear.
+pairs(~ medv + ptratio + black + lstat + dis + rm + crim, data = Boston, main = "Boston Data")
+
+#lstat, dis and rm are good linear variables but things like crim is not linear, in fact the relationship is quite complicated.
+
+
+A) SIMPLE LINEAR REGRESSION:
+fit1=lm(medv~lstat,data=Boston)
+summary(fit1)
+  
+plot(medv~lstat,Boston)
+abline(fit1,col="red")
+  
+confint(fit1)
+
+predict(fit1,data.frame(lstat=c(10,20,30)),interval="confidence")
+
+data.frame(lstat=c(10,20,30))
+
+par(mfrow=c(2,2))
+plot(fit1)
+
+
+B) MULTIPLE LINEAR REGRESSION:
+fit2=lm(medv~lstat+age,data=Boston)
+summary(fit2)
+
+fit3=lm(medv~.,Boston)
+summary(fit3)
+
+par(mfrow=c(2,2))
+plot(fit3)
+
+fit4=update(fit3,~.-age-indus)
+summary(fit4)
+
+
+C)NONLINEAR TERMS:
+fit6=lm(medv~lstat +I(lstat^2),Boston)
+summary(fit6)
+
+attach(Boston)
+par(mfrow=c(1,1))
+plot(medv~lstat, Boston)
+points(lstat,fitted(fit6), col="red",pch=20)
+
+fit7=lm(medv~poly(lstat,4))
+plot(medv~lstat)
+points(lstat,fitted(fit7),col="blue",pch=20)
+
+
+D)INTERACTIONS:
+fit5=lm(medv~lstat*age,Boston)
+summary(fit5)
+
+
+E)FINAL:
+fit6=lm(medv~lstat+crim+rm+dis+black+chas+nox+rad+tax+ptratio+I(lstat^2)+I(rm^2))
+summary(fit6)
+
+par(mfrow=c(2,2))
+plot(fit6)

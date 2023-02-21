@@ -1,0 +1,60 @@
+1] Range Partitioning :
+Code :
+
+create table sales_range_prasanna( 
+salesman_id NUMBER(5),
+salesman_name VARCHAR2(30),
+sales_amount NUMBER(10), 
+sales_date DATE)
+
+PARTITION BY RANGE (sales_date)
+(
+PARTITION sales_jan2000 VALUES LESS THAN(TO_DATE('01/01/2000','DD/MM/YYYY')),
+PARTITION sales_feb2000 VALUES LESS THAN(TO_DATE('01/02/2000','DD/MM/YYYY')),
+PARTITION sales_mar2000 VALUES LESS THAN(TO_DATE('01/03/2000','DD/MM/YYYY')),
+PARTITION sales_apr2000 VALUES LESS THAN(TO_DATE('01/04/2000','DD/MM/YYYY')),
+PARTITION sales_may2000 VALUES LESS THAN(TO_DATE('01/05/2000','DD/MM/YYYY'))
+);
+SELECT TABLE_NAME, PARTITION_NAME FROM USER_TAB_PARTITIONS WHERE
+TABLESPACE_NAME='sales_range_prasanna'; 
+insert into sales_range_prasanna values(1,'prasanna sawant',10000,TO_DATE('13/05/2000','DD/MM/YYYY')); 
+insert into sales_range_prasanna values(2,'ghanshyam patel',20000,TO_DATE('11/02/2000','DD/MM/YYYY')); 
+insert into sales_range_prasanna values(3,'abhishek singh',30000,TO_DATE('10/03/2000','DD/MM/YYYY')); 
+insert into sales_range_prasanna values(4,'amey mhatre',40000,TO_DATE('25/04/2000','DD/MM/YYYY')); 
+insert into sales_range_prasanna values(5,'pranav deshmukh',50000,TO_DATE('3/01/2000','DD/MM/YYYY')); 
+
+select * from sales_range_prasanna; 
+
+select * from sales_range_prasanna PARTITION(sales_feb2000);
+
+
+
+2] List Partitioning :
+Code:
+create table sales_list_prasanna( 
+salesman_id NUMBER(5),
+salesman_name VARCHAR2(30),
+sales_state varchar2(30),
+sales_amount NUMBER(10),
+sales_date DATE)
+
+PARTITION BY LIST (sales_state)
+(
+PARTITION sales_west VALUES ('Mumbai','Pune'),
+PARTITION sales_east VALUES ('Kolkata'),
+PARTITION sales_south VALUES ('Chennai'),
+PARTITION sales_north VALUES ('Delhi'),
+PARTITION sales_other VALUES (Default)
+) enable row movement;
+
+SELECT TABLE_NAME, PARTITION_NAME FROM USER_TAB_PARTITIONS;
+insert into sales_list_prasanna values(1,'prasanna sawant','Mumbai',10000,TO_DATE('10/01/2000','DD/MM/YYYY'));
+insert into sales_list_prasanna values(2,'ghanhsyam patel','Pune',20000,TO_DATE('10/02/2000','DD/MM/YYYY'));
+insert into sales_list_prasanna values(3,'abhishek singh','Delhi',30000,TO_DATE('10/03/2000','DD/MM/YYYY'));
+insert into sales_list_prasanna values(4,'amey mhatre','Kolkata',40000,TO_DATE('10/04/2000','DD/MM/YYYY'));
+insert into sales_list_prasanna values(5,'pranav deshmukh','Chennai',50000,TO_DATE('20/04/2000','DD/MM/YYYY'));
+insert into sales_list_prasanna values(6,'dishank gawas','Allahabad',60000,TO_DATE('10/05/2000','DD/MM/YYYY'));
+select * from sales_list_prasanna;
+
+select * from sales_list_prasanna PARTITION(sales_west);
+

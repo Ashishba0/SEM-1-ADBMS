@@ -1,0 +1,94 @@
+Sonar, Mines vs. Rocks
+Description: Predict metal or rock returns from sonar return data.
+Type: Binary Classification
+Dimensions: 208 instances, 61 attributes
+Inputs: Numeric
+Output: Categorical, 2 class labels
+UCI Machine Learning Repository: Description
+Published accuracy results: Summary
+https://www.kaggle.com/code/sugamkhetrapal/project-3-sonar-mines-vs-rocks
+
+
+# Load the required packages
+library(caret)
+library(mlbench)
+
+# Load the dataset
+data(Sonar)
+
+# Convert the class labels to factors
+Sonar$Class <- as.factor(Sonar$Class)
+
+# Split the dataset into training and testing sets (70/30 split)
+set.seed(123)
+trainIndex <- createDataPartition(Sonar$Class, p = 0.7, list = FALSE)
+trainData <- Sonar[trainIndex, ]
+testData <- Sonar[-trainIndex, ]
+
+# Train a logistic regression model
+model <- train(Class ~ ., data = trainData, method = "glm", family = "binomial")
+
+# Make predictions on the testing set
+predictions <- predict(model, testData)
+
+# Evaluate the performance of the model
+confusionMatrix(predictions, testData$Class)
+
+
+
+---------------------------------------------------------
+
+# Load the required packages
+library(caret)
+library(mlbench)
+library(randomForest)
+
+# Load the dataset
+data(Sonar)
+
+# Convert the class labels to factors
+Sonar$Class <- as.factor(Sonar$Class)
+
+# Split the dataset into training and testing sets (70/30 split)
+set.seed(123)
+trainIndex <- createDataPartition(Sonar$Class, p = 0.7, list = FALSE)
+trainData <- Sonar[trainIndex, ]
+testData <- Sonar[-trainIndex, ]
+
+# Train a random forest model
+model <- randomForest(Class ~ ., data = trainData)
+
+# Make predictions on the testing set
+predictions <- predict(model, testData)
+
+# Evaluate the performance of the model
+confusionMatrix(predictions, testData$Class)
+
+
+----------------------------------------------------------------------------
+# Load the required packages
+library(caret)
+library(mlbench)
+library(e1071)
+
+# Load the dataset
+data(Sonar)
+
+# Convert the class labels to factors
+Sonar$Class <- as.factor(Sonar$Class)
+
+# Split the dataset into training and testing sets (70/30 split)
+set.seed(123)
+trainIndex <- createDataPartition(Sonar$Class, p = 0.7, list = FALSE)
+trainData <- Sonar[trainIndex, ]
+testData <- Sonar[-trainIndex, ]
+
+# Train an SVM model
+model <- svm(Class ~ ., data = trainData)
+
+# Make predictions on the testing set
+predictions <- predict(model, testData)
+
+# Evaluate the performance of the model
+confusionMatrix(predictions, testData$Class)
+

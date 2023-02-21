@@ -1,0 +1,18 @@
+1) LOAD DATASET & PRINT SOME RECORDS:
+# we are creating a data frame by importing csv file
+mba_data<-read.csv("C:\\Users\\Public.LAPTOP-D41683BS\\Desktop\\PRASANNA\\data_apriori.csv")
+
+# you can check top 6 observation using head() function
+trans <- split(mba_data$Products, mba_data$Customer_Id,"transactions")
+head(trans)
+
+2) INSTALL & LOAD LIBRARY:
+install.packages("arules")
+library(arules)
+
+3) APPLYING RULES ON DATASET:
+rules = apriori(trans, parameter=list(support=0.5, confidence=0.9,maxlen=3,minlen=2))
+
+4) TO GET THE RULES:
+inspect(rules)
+
